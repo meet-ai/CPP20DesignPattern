@@ -15,6 +15,14 @@ target("crtp")
     set_kind("binary")
     add_files("src/crtp/*.cpp")
 
+target("mixin")
+    add_packages("spdlog")
+    set_kind("binary")
+    add_files("src/mixin/*.cpp")
+target("concept")
+    add_packages("spdlog")
+    set_kind("binary")
+    add_files("src/concept/*.cpp")
 --
 -- If you want to known more usage about xmake, please see https://xmake.io
 --
