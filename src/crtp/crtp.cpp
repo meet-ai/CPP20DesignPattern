@@ -35,6 +35,11 @@ struct Derived : Base<Derived> {
 struct DerivedB : Base<DerivedB> {
     //5. implementation 使用默认实现
 };
+
+template<typename T>
+void test_static_polymorphism(Base<T> &b) {
+    b.interface();
+}
 int main () {
     //6. Derived 对接口进行实现,实现了静态接口多态
     Derived d;
@@ -49,4 +54,8 @@ int main () {
     //6. Base<DerivedB> 和 DerivedB 是不一样的  
     Base<DerivedB> bd2;
     bd2.interface();
+
+    //7 
+    test_static_polymorphism(bd);
+    test_static_polymorphism(bd2);
 }
