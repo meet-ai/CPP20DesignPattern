@@ -5,10 +5,12 @@ add_cxxflags("-std=c++20")
 
 add_requires("fmt")
 add_requires("spdlog")
+add_requires("boost_di")
 --add_requires("gtest")
 --add_requires("poco")
 --add_includedirs("/usr/include", "/usr/local/include")
 --add_requires("gflags")
+
 
 target("crtp")
     add_packages("spdlog")
@@ -23,6 +25,11 @@ target("concept")
     add_packages("spdlog")
     set_kind("binary")
     add_files("src/concept/*.cpp")
+target("di")
+    add_packages("spdlog")
+    add_packages("boost_di")
+    set_kind("binary")
+    add_files("src/di/*.cpp")
 --
 -- If you want to known more usage about xmake, please see https://xmake.io
 --
