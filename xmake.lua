@@ -1,35 +1,66 @@
-
-add_rules("mode.debug", "mode.release")
 add_rules("mode.debug", "mode.release")
 add_cxxflags("-std=c++20")
+--set_languages("c++20")
+set_policy("build.c++.modules", true) -- 全局，可以改成只有target
+
+--import("core.project.config")
+add_repositories("local-repo build")
+add_requires("reflect-cpp")
+
+-- 添加链接选项
+
+--add_ldflags("-isysroot /opt/homebrew/opt/llvm/lib")
+--add_cxxflags("-I/opt/homebrew/opt/llvm/include")
+
+set_policy("build.c++.modules", true)
+add_rules("mode.debug", "mode.release")
+add_requires("conan::poco/1.13.3",{alias = "poco",configs = {settings = "compiler.cppstd=20"}})
+
 
 add_requires("fmt")
 add_requires("spdlog")
 add_requires("boost_di")
---add_requires("gtest")
---add_requires("poco")
---add_includedirs("/usr/include", "/usr/local/include")
---add_requires("gflags")
+add_requires("toml++")
+add_requires("cista")
 
 
-target("crtp")
-    add_packages("spdlog")
-    set_kind("binary")
-    add_files("src/crtp/*.cpp")
 
-target("mixin")
-    add_packages("spdlog")
-    set_kind("binary")
-    add_files("src/mixin/*.cpp")
-target("concept")
-    add_packages("spdlog")
-    set_kind("binary")
-    add_files("src/concept/*.cpp")
+
+target("strutil")
+    --set_kind("static")
+    set_kind("moduleonly")
+    add_packages("poco")
+    add_files("modules/strutil.ixx")
+
+--target("crtp")
+--    add_packages("spdlog")
+--    set_kind("binary")
+--    add_files("src/crtp/*.cpp")
+--
+--target("mixin")
+--    add_packages("spdlog")
+--    set_kind("binary")
+--    add_files("src/mixin/*.cpp")
+--
+--target("concept")
+--    add_packages("spdlog")
+--    set_kind("binary")
+--    add_files("src/concept/*.cpp")
+
 target("di")
+    add_deps("strutil")
     add_packages("spdlog")
+    add_packages("poco")
     add_packages("boost_di")
+    add_packages("toml++")
+    add_packages("cista")
+    add_packages("reflect-cpp")
     set_kind("binary")
+    add_includedirs("src")
+    add_files("src/config/*.cpp")
     add_files("src/di/*.cpp")
+
+
 --
 -- If you want to known more usage about xmake, please see https://xmake.io
 --

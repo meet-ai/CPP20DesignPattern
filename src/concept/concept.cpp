@@ -1,13 +1,12 @@
-
-
 #include <spdlog/spdlog.h>
 
 
-//1. requires 支持的场景, 以及定义
+// 1. requires 支持的场景, 以及定义
 // 函数调用要求, impl.size() ;
 // 成员函数要求 {  impl.size() } -> std::convertible_to<size_t>;
 // 操作符要求  {impla + implb}  -> std::convertible_to<size_t>;
 // convertible_to<size_t> 是 C++ 20 的一个特性,编译时检查类型转换的可行性
+
 template<typename INTERFACE>
 concept IFS = requires(INTERFACE impl) {
     impl.interface_a();
