@@ -30,15 +30,21 @@ export module config;  // 为模块 "foo" 声明主模块接口单元
 struct ServerBlock {
     string http_endpoint;
 };
+
+struct Log {
+    string log_level;
+};
+
 struct TomlConfig {
     ServerBlock server_block;
+    Log log;
 };
-export unique_ptr<TomlConfig> ParseConfig(const string &path) {
+export shared_ptr<TomlConfig> ParseConfig(const string &path) {
     Poco::FileInputStream fis(path); // 替换为实际文件路径
     std::string content((std::istreambuf_iterator<char>(fis)), std::istreambuf_iterator<char>());
     cout << content << std::endl;
     auto tConfig = rfl::toml::read<TomlConfig>(content).value();
-    return make_unique<TomlConfig>(tConfig);
+    return make_shared<TomlConfig>(tConfig);
     //cout << tConfig.sb.httpEndpoint << endl;
 }
-export unique_ptr<TomlConfig> globalConfig;
+export shared_ptr<TomlConfig> globalConfig;

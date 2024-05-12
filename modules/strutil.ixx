@@ -22,6 +22,7 @@ export module strutil;  // 为模块 "foo" 声明主模块接口单元
 //// 对模块外部可见的函数声明与实现，通过 export 修饰
 //export void FooFunc() { FooFuncInternal(); }
 
+
 export shared_ptr<vector<string>> split(const string&data, string sep) {
     Poco::StringTokenizer tokenizer(data, sep);
     auto vec = std::vector<string>(tokenizer.begin(), tokenizer.end());
