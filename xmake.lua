@@ -19,6 +19,7 @@ add_requires("conan::poco/1.13.3",{alias = "poco",configs = {settings = "compile
 add_requires("fmt")
 add_requires("spdlog")
 add_requires("toml++")
+add_requires("cli11")
 
 
 
@@ -28,6 +29,12 @@ target("strutil")
     add_packages("poco")
     add_files("modules/strutil.ixx")
 
+target("config")
+    set_kind("moduleonly")
+    add_packages("toml++")
+    add_packages("poco")
+    add_packages("reflect-cpp")
+    add_files("modules/config.ixx")
 --target("crtp")
 --    add_packages("spdlog")
 --    set_kind("binary")
@@ -45,15 +52,17 @@ target("strutil")
 
 target("di")
     add_deps("strutil")
+    add_deps("config")
+    add_packages("cli11")
     add_packages("spdlog")
     add_packages("poco")
     add_packages("boost_di")
-    add_packages("toml++")
     add_packages("cista")
+    add_packages("toml++")
     add_packages("reflect-cpp")
     set_kind("binary")
     add_includedirs("src")
-    add_files("src/config/*.cpp")
+    --add_files("src/config/*.cpp")
     add_files("src/di/*.cpp")
 
 
