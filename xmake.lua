@@ -3,7 +3,6 @@ add_cxxflags("-std=c++20")
 --set_languages("c++20")
 set_policy("build.c++.modules", true) -- 全局，可以改成只有target
 
---import("core.project.config")
 add_repositories("local-repo build")
 add_requires("reflect-cpp")
 
@@ -19,15 +18,12 @@ add_requires("conan::poco/1.13.3",{alias = "poco",configs = {settings = "compile
 
 add_requires("fmt")
 add_requires("spdlog")
-add_requires("boost_di")
 add_requires("toml++")
-add_requires("cista")
 
 
 
 
 target("strutil")
-    --set_kind("static")
     set_kind("moduleonly")
     add_packages("poco")
     add_files("modules/strutil.ixx")

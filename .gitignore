@@ -1,4 +1,5 @@
 
 .xmake
-build
+!build/packages
+build/
 build/*
